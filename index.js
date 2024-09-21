@@ -52,7 +52,6 @@ const config = require('./settings');
   } else {
     console.log("Session already exists.");
   }
-  const express = require("express");
 function generateRandomString(length) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
