@@ -1,7 +1,7 @@
 {
-  "name": "bulkmsgSender",
+  "name": "whatsapp-bot",
   "version": "1.0.0",
-  "description": "A WhatsApp bot using Baileys library created by Hamza",
+  "description": "A WhatsApp bot using Baileys library",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -13,4 +13,8 @@
     "pino": "^8.13.0",
     "node-cache": "^5.1.0",
     "body-parser": "^1.20.2"
+  },
+  "engines": {
+    "node": ">=16.x"
   }
+}
