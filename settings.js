@@ -1,6 +1,6 @@
 const config = {
-    NUMBER: '923072380380',
-    SESSION_ID: '' //Agar idhr session id paste nahi karni to, direct session folder mein creds.json mein session id dycrypt ker ke paste karo......
+    NUMBER: process.env.NUMBER || '923072380380', // Fallback to default number if env var is not set
+    SESSION_ID: process.env.SESSION_ID || '' // Fetch SESSION_ID from Heroku environment variables
 };
 
 module.exports = config;
