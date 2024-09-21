@@ -104,15 +104,15 @@ async function connectToWA() {
             const commandParts = textMessage.split('|');
 
             if (commandParts.length !== 2) {
-                await sock.sendMessage(sender, { text: 'Ghalat format. Istemal karein: /sendmsg <number file link> | <message>' });
+                await sock.sendMessage(sender, { text: 'Ghalat format, Aisay iIstemal karein: `/sendmsg <number file link> | <message>`' });
                 return;
             }
 
             const numberFileLink = commandParts[0].replace('/sendmsg ', '').trim();  // Extract the link
             const messageToSend = commandParts[1].trim();  // Extract the message
 
-            console.log('Mili number file link:', numberFileLink);
-            console.log('Mili message jo bhejna hai:', messageToSend);
+            console.log('number file link:', numberFileLink);
+            console.log('message jo bhejna hai:', messageToSend);
 
             try {
                 // Fetch numbers from the link
@@ -145,7 +145,7 @@ async function connectToWA() {
                                 const randomDelay = Math.random() * (5000 - 2000) + 2000; // Between 2-5 seconds
                                 await delay(randomDelay);
                             } catch (error) {
-                                console.error(`Message bhejne mein nakami ${formattedNumber} par:`, error);
+                                console.error(`Main ${formattedNumber} iss pe Message Nahi send ker saka`, error);
                             }
                         } else {
                             console.log(`Number ${number} WhatsApp par nahi hai.`);
@@ -156,7 +156,7 @@ async function connectToWA() {
                     // Log the final counts after processing all numbers
                     console.log(`Total messages bheje gaye: ${sentCount}`);
                     console.log(`Total messages nahi bheje gaye: ${notSentCount}`);
-                    await sock.sendMessage(923072380380 + '@s.whatsapp.net', { text: `*_${sentCount}_* numbers par WhatsApp bana huwa tha, aur inpe msg bhej diya hai...Aur\n\n*_${notSentCount}_* numbers par WhatsApp he nahi bana, is liye main message nahi bhej saka..` });
+                    await sock.sendMessage(config.NUMBER + '@s.whatsapp.net', { text: `*_${sentCount}_* numbers par WhatsApp bana huwa tha, aur inpe msg bhej diya hai...Aur\n\n*_${notSentCount}_* numbers par WhatsApp he nahi bana, is liye main message nahi bhej saka..` });
                     sentCount = 0;
                     notSentCount = 0;
 
