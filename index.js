@@ -179,8 +179,7 @@ async function connectToWA() {
                             try {
                                 await sendMessageWithRetry(sock, formattedNumber, uniqueMessage);
 
-                                const randomDelay = Math.random() * (5000 - 2000) + 2000;
-                                await delay(randomDelay);
+                        
                             } catch (error) {
                                 console.error(`Failed to send message to ${formattedNumber}`, error);
                             }
