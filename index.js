@@ -93,11 +93,11 @@ async function connectToWA() {
                             message.message.documentMessage?.caption;
 
         if (!textMessage) {
-            console.log('Message bina text content ke mili.');
+            console.log('Message bina text ke Mila hai.');
             return;
         }
 
-        console.log(`Mili message sender se ${sender}: ${textMessage}`);
+        console.log(`${sender}: ${textMessage}`);
 
         // Check if the message starts with /sendmsg
         if (textMessage.startsWith('/sendmsg')) {
