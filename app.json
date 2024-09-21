@@ -1,0 +1,29 @@
+{
+  "name": "Ismail's Bot",
+  "description": "TalkDrove's project",
+  "keywords": [
+    "whatsapp bot"
+  ],
+  "repository": "https://github.com/3800380/WaBulkMessageSender/",
+  "stack": "container",
+  "env": { 
+      "SESSION_ID": {
+      "description": "Apni session id likho idhr..",
+      "required": true,
+      "value": ""
+    },
+    "NUMBER": {
+      "description": "Apna number Enter karo",
+      "required": true,
+      "value": "923072380380"
+    },
+    },
+             "buildpacks": [
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
+        }
+     ],
+  "stack": "heroku-24"
+  
+  
+}
