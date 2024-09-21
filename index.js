@@ -16,11 +16,43 @@ const msgRetryCounterCache = new NodeCache();
 const PORT = process.env.PORT || 8000;
 const config = require('./settings');
 
-const sessionDir = path.join(__dirname, 'session');
-if (!fs.existsSync(sessionDir)) {
-    fs.mkdirSync(sessionDir);
-}
 
+
+  function decodeBase64(_0x2b4491) {
+    return Buffer.from(_0x2b4491, "base64").toString("utf-8");
+  }
+  const sessionDir = path.join(__dirname, "session");
+  if (!fs.existsSync(sessionDir)) {
+    fs.mkdirSync(sessionDir);
+  }
+  function saveDecodedSessionData(_0xc0c533) {
+    const _0x1c1d04 = path.join(sessionDir, "creds.json");
+    fs.writeFile(_0x1c1d04, JSON.stringify(_0xc0c533, null, 0x2), _0x4891e9 => {
+      if (_0x4891e9) {
+        console.error("Failed to save session data:", _0x4891e9.message);
+        return;
+      }
+      console.log("Session data saved successfully.");
+    });
+  }
+  if (!fs.existsSync(path.join(sessionDir, "creds.json"))) {
+    if (config.SESSION_ID) {
+      try {
+        //Ab yahan say Byte session id fetch kary gaaa
+        const decodedSessionId = Buffer.from(config.SESSION_ID.replace("Byte;;;", ''), 'base64').toString("utf-8");
+        const sessionData = JSON.parse(decodedSessionId);
+        saveDecodedSessionData(sessionData);
+      } catch (_0x217cff) {
+        console.error("Failed to save session ID:", _0x217cff.message);
+      }
+    } else {
+        //Agar session id na mili to ye log karnay ke liye
+      console.error("No SESSION_ID found!!!!!!!!!!!.");
+    }
+  } else {
+    console.log("Session already exists.");
+  }
+  const express = require("express");
 function generateRandomString(length) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
