@@ -172,6 +172,21 @@ async function connectToWA() {
 
                     if (validNumbers.length > 0) {
                         console.log('Sending messages to valid numbers...');
+
+                      
+                        const useRandomDelay = config.USE_RANDOM_DELAY.toLowerCase() === 'true'; 
+                        const customDelaySeconds = parseInt(config.DELAY_TIME, 10); 
+
+                        function getDelay() {
+                            if (useRandomDelay) {
+                              
+                                return Math.random() * (5000 - 2000) + 2000;
+                            } else {
+                           
+                                return customDelaySeconds * 1000;
+                            }
+                        }
+
                         for (const validNumber of validNumbers) {
                             const formattedNumber = validNumber + '@s.whatsapp.net';
                             const uniqueMessage = messageToSend + '\n' + generateRandomString(6);
@@ -179,7 +194,9 @@ async function connectToWA() {
                             try {
                                 await sendMessageWithRetry(sock, formattedNumber, uniqueMessage);
 
-                        
+                                // Use the delay based on the condition
+                                const delayTime = getDelay();
+                                await delay(delayTime);
                             } catch (error) {
                                 console.error(`Failed to send message to ${formattedNumber}`, error);
                             }
