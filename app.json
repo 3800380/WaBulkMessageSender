@@ -12,6 +12,16 @@
       "required": true,
       "value": ""
     },
+        "DELAY_TIME": {
+      "description": "Delay time in seconds",
+      "required": true,
+      "value": "5"
+    },
+       "USE_RANDOM_DELAY": {
+      "description": "Agar random delay on karna chahty ho to true type karo else false, Agar ye true huwa to Custom delay time jo specify kar rahay usski jagah har dafa bot random time mein message send kary ga, for example agar true ker diya to message kabhi 2 second baad send kary ga to kabhi 5 seconds baad iss se WhatsApp ka alorithom shayd detect na ker sakyy..",
+      "required": true,
+      "value": "false"
+    },
     "NUMBER": {
       "description": "Apna number Enter karo",
       "required": true,
