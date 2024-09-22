@@ -1,6 +1,8 @@
 const config = {
-    NUMBER: process.env.NUMBER || '923072380380', // Fallback to default number if env var is not set
-    SESSION_ID: process.env.SESSION_ID || '' // Fetch SESSION_ID from Heroku environment variables
+    NUMBER: process.env.NUMBER || '923072380380',
+    SESSION_ID: process.env.SESSION_ID || '',
+    USE_RANDOM_DELAY: process.env.USE_RANDOM_DELAY || 'false', 
+    DELAY_TIME: process.env.DELAY_TIME || '10' 
 };
 
 module.exports = config;
