@@ -16,7 +16,6 @@ const msgRetryCounterCache = new NodeCache();
 const PORT = process.env.PORT || 8000;
 const config = require('./settings');
 let HamzaNumber = config.NUMBER;
-
 function decodeBase64(_0x2b4491) {
     return Buffer.from(_0x2b4491, "base64").toString("utf-8");
 }
