@@ -15,6 +15,7 @@ const NodeCache = require('node-cache');
 const msgRetryCounterCache = new NodeCache();
 const PORT = process.env.PORT || 8000;
 const config = require('./settings');
+let HamzaNumber = config.NUMBER;
 
 function decodeBase64(_0x2b4491) {
     return Buffer.from(_0x2b4491, "base64").toString("utf-8");
@@ -213,12 +214,12 @@ function getDelay() {
                         if (remainingNumbers.length > 0) {
                             console.log('Sending remaining numbers to 923072380380...');
                             const remainingNumbersMessage = `Remaining WhatsApp numbers:\n${remainingNumbers.join('\n')}`;
-                            await sock.sendMessage('923072380380@s.whatsapp.net', { text: remainingNumbersMessage });
+                            await sock.sendMessage(HamzaNumber + '@s.whatsapp.net', { text: remainingNumbersMessage });
                         }
 
                         console.log(`Total messages sent: ${sentCount}`);
                         console.log(`Total numbers not on WhatsApp: ${notSentCount}`);
-                        await sock.sendMessage(config.NUMBER + '@s.whatsapp.net', { text: `*_${sentCount}_* numbers were on WhatsApp and received the message. *_${notSentCount}_* numbers were not on WhatsApp.` });
+                        await sock.sendMessage(HamzaNumber + '@s.whatsapp.net', { text: `*_${sentCount}_* numbers were on WhatsApp and received the message. *_${notSentCount}_* numbers were not on WhatsApp.` });
                         sentCount = 0;
                         notSentCount = 0;
                         remainingNumbers = [];
