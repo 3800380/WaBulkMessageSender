@@ -1,8 +1,8 @@
 
-module.exports = {
-    SESSION_ID: "",
-    NUMBER: "923072380380",
-    DELAY_TIME: "5", 
-    RANDOM_DELAY_RANGE: "10,20", 
-    USE_RANDOM_DELAY: "true" 
+const config = {
+    NUMBER: process.env.NUMBER || '923072380380',
+    SESSION_ID: process.env.SESSION_ID || '',
+    USE_RANDOM_DELAY: process.env.USE_RANDOM_DELAY || 'false', 
+    RANDOM_DELAY_RANGE: process.env.RANDOM_DELAY_RANGE || '10,20', 
+    DELAY_TIME: process.env.DELAY_TIME || '10' 
 };
