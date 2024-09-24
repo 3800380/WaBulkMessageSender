@@ -178,14 +178,16 @@ async function connectToWA() {
 
                         const useRandomDelay = config.USE_RANDOM_DELAY.toLowerCase() === 'true'; 
                         const customDelaySeconds = parseInt(config.DELAY_TIME, 10); 
-
-                        function getDelay() {
-                            if (useRandomDelay) {
-                                return Math.random() * (5000 - 2000) + 2000;
-                            } else {
-                                return customDelaySeconds * 1000;
-                            }
-                        }
+function getDelay() {
+    if (useRandomDelay) {
+    
+        const delayRange = config.RANDOM_DELAY_RANGE.split(',').map(Number); 
+        const minDelay = delayRange[0] * 1000; 
+        const maxDelay = delayRange[1] * 1000; 
+        return Math.random() * (maxDelay - minDelay) + minDelay; 
+        return customDelaySeconds * 1000; 
+    }
+}
 
                         let count = 0;
                         for (const validNumber of validNumbers) {
