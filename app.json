@@ -26,7 +26,12 @@
       "description": "Apna number Enter karo",
       "required": true,
       "value": "923072380380"
-    }
+    },
+    
+    "RANDOM_DELAY_RANGE": {
+      "description": "Random delay jitna marzi add karo seconds mein, jo comma se seprate hoga (10, 20)",
+      "required": true,
+      "value": "10,20"
   },
   "buildpacks": [
     {
