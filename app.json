@@ -12,12 +12,12 @@
       "required": true,
       "value": ""
     },
-        "DELAY_TIME": {
+    "DELAY_TIME": {
       "description": "Delay time in seconds",
       "required": true,
       "value": "5"
     },
-       "USE_RANDOM_DELAY": {
+    "USE_RANDOM_DELAY": {
       "description": "Agar random delay on karna chahty ho to true type karo else false, Agar ye true huwa to Custom delay time jo specify kar rahay usski jagah har dafa bot random time mein message send kary ga, for example agar true ker diya to message kabhi 2 second baad send kary ga to kabhi 5 seconds baad iss se WhatsApp ka alorithom shayd detect na ker sakyy..",
       "required": true,
       "value": "false"
@@ -27,13 +27,12 @@
       "required": true,
       "value": "923072380380"
     },
-    
     "RANDOM_DELAY_RANGE": {
       "description": "Random delay jitna marzi add karo seconds mein, jo comma se seprate hoga (10, 20)",
       "required": true,
       "value": "10,20"
-  }
-    
+    }
+  },
   "buildpacks": [
     {
       "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
