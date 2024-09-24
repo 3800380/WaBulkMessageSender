@@ -33,7 +33,7 @@
       "required": true,
       "value": "10,20"
   }
-    {
+    
   "buildpacks": [
     {
       "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
